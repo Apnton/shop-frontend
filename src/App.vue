@@ -1,6 +1,7 @@
 <script setup>
   import MyNavbar from '@/components/Navbar/MyNavbar.vue'
   import MyFooter from '@/components/Footer/MyFooter.vue'
+
 </script>
 
 <template>
@@ -9,7 +10,7 @@
     <div class="wrapper-content">
       <section class="section">
         <div class="container">
-            <div>222</div>
+           <router-view></router-view>
         </div>
       </section>
     </div>
