@@ -1,15 +1,15 @@
 <script setup>
-import {onMounted} from 'vue'
 import {useRoute} from "vue-router";
-import {reactive, watch} from 'vue';
 import {useSizeStore} from '@/store/SizeStore'
 import {useColorStore} from '@/store/ColorStore'
 import MySpinner from '@/components/UI/MySpinner'
+import {reactive, watch, onMounted, ref} from 'vue'
 import {useProductStore} from '@/store/ProductStore'
 import {useCategoryStore} from '@/store/CategoryStore'
-import CardItem from '@/components/Product/CardItem.vue';
+import CardItem from '@/components/Product/CardItem.vue'
 import FilterList from '@/components/Filter/FilterList.vue'
-import BannerBlock from '@/components/Product/BannerBlock.vue';
+import BannerBlock from '@/components/Product/BannerBlock.vue'
+import ProductPopup from  '@/components/Product/ProductPopup.vue'
 
 const route = useRoute()
 const sizeStore = useSizeStore()
@@ -17,6 +17,7 @@ const colorStore = useColorStore()
 const productStore = useProductStore()
 const categoryStore = useCategoryStore()
 
+const popupVisible = ref(false)
 const params = reactive({
   category_slug: route.params.slug,
   color_id: colorStore.selectedColor,
@@ -31,6 +32,15 @@ const selectedColor = (id) => {
 const selectedSize = (id) => {
   params.size_id = id
   productStore.getProductsWithParams(params)
+}
+
+const hidePopup = (visible) => {
+  popupVisible.value = visible
+}
+
+const showPopup = (slug) => {
+  productStore.getProductBySlug(slug)
+  popupVisible.value = true
 }
 
 watch(route, () => {
@@ -50,6 +60,12 @@ onMounted(async () => {
 
 <template>
   <div>
+     <ProductPopup
+         @visible="hidePopup"
+         :visible="popupVisible"
+         :group="productStore.group"
+         :product="productStore.product"
+     />
     <div class="banner-wrapper">
       <BannerBlock
           v-if="!categoryStore.isLouding && categoryStore.category?.image"
@@ -73,11 +89,13 @@ onMounted(async () => {
         />
       </div>
       <div class="card__list">
-        <CardItem
-            v-for="product in productStore.products"
-            :key="product.id"
-            :product="product"
-        />
+
+        <template v-for="product in productStore.products" :key="product.id">
+          <router-link :to="`/product/${product.slug}`">
+            <CardItem @show="showPopup" :product="product"/>
+          </router-link>
+        </template>
+
       </div>
     </div>
   </div>

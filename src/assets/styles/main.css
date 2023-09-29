@@ -1,7 +1,6 @@
 @import './reset.css';
 
-:root
-{
+:root {
     --bs-blue: #5E50F9;
     --bs-indigo: #6610f2;
     --bs-purple: #6a008a;
@@ -29,68 +28,89 @@
     --bs-gray-800: #343a40;
     --bs-gray-900: #212529;
 
-
-
 }
 
-html
-{
+html {
     line-height: 1.2;
     font-size: 10px;
     color: #000000;
     height: 100%;
 }
 
-body
-{
+body {
     padding-top: 64px;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
     background-color: #f7f7f7;
+    box-sizing: border-box;
 }
 
-.wrapper
-{
+.wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0 auto;
+    overflow: hidden;
 }
 
-.wrapper-content
-{
+.wrapper-content {
     display: flex;
     flex-direction: column;
     flex: 1;
+    overflow: hidden;
 }
 
-.container
-{
-    width: 100%;
-    max-width: 1280px;
-    position: relative;
-    margin: 0 auto;
-    padding: 0 15px;
+/*.container {*/
+/*    width: 100%;*/
+/*    max-width: 1280px;*/
+/*    position: relative;*/
+/*    margin: 0 auto;*/
+/*    padding: 0 15px;*/
+/*}*/
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-.section
-{
+.section {
     padding: 40px 0;
 }
 
-.center
-{
+.center {
     text-align: center;
 }
 
 .title {
-    max-width: 676px;
-
     font-family: inherit;
     font-weight: 700;
-    font-size: 58px;
+    font-size: 4rem;
     color: black;
+}
+
+.title--center
+{
     text-align: center;
 }
 
+
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1300px) {
+    .container {
+        width: 1280px;
+    }
+}

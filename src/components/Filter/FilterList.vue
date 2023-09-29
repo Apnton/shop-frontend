@@ -18,8 +18,15 @@ const emit = defineEmits(['selected'])
 const selectedItem = ref(null)
 
 const selected = (id) => {
-  selectedItem.value = id
-  emit('selected', id)
+
+  if (id === selectedItem.value) {
+    selectedItem.value = null
+    emit('selected', null)
+  } else {
+    selectedItem.value = id
+    emit('selected', id)
+  }
+
 }
 
 </script>
@@ -40,26 +47,23 @@ const selected = (id) => {
 </template>
 
 <style scoped>
-  .filter__title
-  {
-    font-weight: 500;
-    margin-bottom: 16px;
-  }
+.filter__title {
+  font-weight: 500;
+  margin-bottom: 16px;
+}
 
-  .filter__items
-  {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
-    padding-top: 16px;
-    border-top: 1px solid var(--bs-gray-300);
-  }
+.filter__items {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--bs-gray-300);
+}
 
-  .filter__item--active
-  {
-    color: var(--bs-white);
-    background-color: var(--bs-black);
-  }
+.filter__item--active {
+  color: var(--bs-white);
+  background-color: var(--bs-black);
+}
 
 </style>

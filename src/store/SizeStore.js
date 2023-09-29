@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import axios from 'axios';
+import api from '@/api';
 
 export const useSizeStore = defineStore('sizeStore', {
     state: () => ({
@@ -11,7 +11,7 @@ export const useSizeStore = defineStore('sizeStore', {
     actions: {
         getSizes() {
             this.$state.isLouding = true
-            axios.get('/api/products/sizes')
+            api.get('/api/products/sizes')
                 .then(res => {
                     this.$state.sizes = res.data.data
                 })

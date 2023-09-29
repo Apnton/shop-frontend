@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import api from '@/api';
 
 export const useProductStore = defineStore('productStore', {
     state: () => ({
@@ -11,11 +11,7 @@ export const useProductStore = defineStore('productStore', {
 
     actions: {
         getProducts() {
-            axios.get('/api/products', {
-               params: {
-                   // category_id: 1
-               }
-            })
+            api.get('/api/products')
                 .then(res => {
                     this.$state.products = res.data.data.items
                 }).catch(err => {
@@ -24,7 +20,7 @@ export const useProductStore = defineStore('productStore', {
         },
 
         getProductsWithParams(params) {
-            axios.get('/api/products', {params: params})
+            api.get('/api/products', {params: params})
                 .then(res => {
                     this.$state.products = res.data.data.items
                 }).catch(err => {
@@ -32,8 +28,8 @@ export const useProductStore = defineStore('productStore', {
             })
         },
 
-        getProductBySlug() {
-            axios.get('/api/products/show')
+        getProductBySlug(slug) {
+            api.get(`/api/products/show/${slug}`)
                 .then(res => {
                     this.$state.product = res.data.data.product
                     this.$state.group = res.data.data.group

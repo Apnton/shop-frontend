@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import api from '@/api';
 
 export const useCategoryStore = defineStore('categoryStore', {
     state: () => ({
@@ -11,7 +11,7 @@ export const useCategoryStore = defineStore('categoryStore', {
     actions: {
         getCategories() {
             // this.$state.isLouding = true
-            axios.get('/api/products/categories')
+            api.get('/api/products/categories')
                 .then(res => {
                     this.$state.categories = res.data.data
                 })
@@ -25,7 +25,7 @@ export const useCategoryStore = defineStore('categoryStore', {
 
         getCategoryBySlug(slug) {
             this.$state.isLouding = true
-            axios.get(`/api/products/categories/${slug}`)
+            api.get(`/api/products/categories/${slug}`)
                 .then(res => {
                     this.$state.category = res.data.data
                 })

@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import axios from 'axios';
+import api from '@/api';
 
 export const useColorStore = defineStore('colorStore', {
     state: () => ({
@@ -11,7 +11,7 @@ export const useColorStore = defineStore('colorStore', {
     actions: {
         getColors() {
             this.$state.isLouding = true
-            axios.get('/api/products/colors')
+            api.get('/api/products/colors')
                 .then(res => {
                     this.$state.colors = res.data.data
                 })

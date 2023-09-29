@@ -8,8 +8,6 @@ import BannerBlock from '@/components/Product/BannerBlock.vue';
 
 
 const productStore = useProductStore();
-console.log(productStore.getProducts());
-
 onMounted(async () => {
   await productStore.getProducts()
 
@@ -22,19 +20,16 @@ const title = 'Explore The Special Collection!';
 <template>
   <div class="banner-wrapper">
     <BannerBlock
-
         :image="banner"
         :title="title"
-        >
-    </BannerBlock>
-
-    
+    />
   </div>
-
   <div>
+
     <MainTitle>
-        Featured Products
+      Featured Products
     </MainTitle>
+
     <div class="products">
       <CardList class="card__list" :products="productStore.products"/>
     </div>
@@ -42,8 +37,28 @@ const title = 'Explore The Special Collection!';
 </template>
 
 <style scoped>
-.card__list
-{
-  grid-template-columns: repeat(4,minmax(0,1fr));
+.card__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 16px;
+}
+
+@media (max-width: 1200px) {
+  .card__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991px) {
+  .card__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .card__list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
 </style>
